@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() {
   return runApp(
@@ -10,37 +11,56 @@ void main() {
           centerTitle: true,
           backgroundColor: Colors.red,
         ),
-        body: DicePage(),
+        body: DiceChange(),
       ),
     ),
   );
 }
 
-class DicePage extends StatelessWidget {
+class DiceChange extends StatefulWidget {
+  @override
+  _DiceChangeState createState() => _DiceChangeState();
+}
+
+class _DiceChangeState extends State<DiceChange> {
+  int left = 1;
+  int right = 3;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-      child: Center(
-        child: Row(
-          children: <Widget>[
-            Expanded(
+    return Center(
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: FlatButton(
+              splashColor: Colors.red[100],
+              onPressed: () {
+                setState(() {
+                  left = Random().nextInt(6) + 1;
+                });
+              },
+              padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10.0),
               child: Image(
                 colorBlendMode: BlendMode.darken,
-                width: 150.0,
-                image: AssetImage('images/dice1.png'),
+                image: AssetImage('images/dice$left.png'),
               ),
             ),
-            SizedBox(width: 15.0),
-            Expanded(
+          ),
+          Expanded(
+            child: FlatButton(
+              splashColor: Colors.red[100],
+              onPressed: () {
+                setState(() {
+                  right = Random().nextInt(6) + 1;
+                });
+              },
+              padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10.0),
               child: Image(
                 colorBlendMode: BlendMode.darken,
-                width: 150.0,
-                image: AssetImage('images/dice2.png'),
+                image: AssetImage('images/dice$right.png'),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
